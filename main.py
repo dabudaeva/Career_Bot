@@ -236,12 +236,24 @@ async def negotiations(query: types.CallbackQuery):
 async def negotiations(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
-        types.InlineKeyboardButton(text="Назад", callback_data="next5"),
-        types.InlineKeyboardButton(text="Далее", callback_data="next7"),
+        types.InlineKeyboardButton(text="Назад", callback_data="next6"),
     )
-    await query.message.edit_text('Прежде чем согласиться, вспомните про то, что первый оффер всегда '
-                                  'минимальный - обдумайте и  решите, хотите ли попробовать поднять '
-                                  'сумму - это возможно!', reply_markup=keyboard1)
+    await query.message.edit_text('Ок, не забудьте про юридическое оформлени!', reply_markup=keyboard1)
+
+@dp.callback_query_handler(text="next7_alt1")
+async def negotiations(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="Назад", callback_data="next7"),
+    )
+    await query.message.edit_text('"Я внимательно ознакомился(лась) с вашим предложением. '
+                                  'Должен(а) признать, что оно привлекательно и конкурентоспособно. '
+                                  'Мне нравится ваша компания/проект/команда и я заинтересован в '
+                                  'сотрудничестве с вами.'
+                                  '1. Поднимаем сумму'
+                                  'Однако на днях у меня завершились переговоры с другой компанией и я получил(а) оффер привлекательнее по размеру заработной платы. Предлагаю пересмотреть размер зарплаты до (сумма)."'
+                                  '2.Улучшаем условия, которые не устраивают'
+                                  'Однако я хотел(а) бы обсудить возможность удаленной работы (работы в офисе), возможность получить ДМС со стоматологией (перечислить условия, которые для вас идеальны). Подскажите, пожалуйста, есть ли возможность обсудить варианты обновления оффера?"', reply_markup=keyboard1)
 
 
 @dp.callback_query_handler(text="next6_alt")
