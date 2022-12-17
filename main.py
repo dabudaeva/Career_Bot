@@ -21,9 +21,9 @@ async def on_startup(_):
 @dp.message_handler(commands=['start'])
 async def starter(message: types.Message):
     logging.info(f'{message.from_user.full_name}: {message.text}')
-    await bot.send_message(message.from_id, f'Привет, {message.from_user.first_name}! '
-                                            f'Меня зовут Elbrus Career Bot! 💫')
-    await bot.send_photo(message.from_id, photo="static/start.jpg")
+    # await bot.send_message(message.from_id, f'Привет, {message.from_user.first_name}! '
+    #                                         f'Меня зовут Elbrus Career Bot! 💫')
+    await bot.send_photo(message.from_id, photo=open('static/start.jpg', 'rb'))
 
     kb = [
         [
