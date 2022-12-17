@@ -23,6 +23,8 @@ async def starter(message: types.Message):
     logging.info(f'{message.from_user.full_name}: {message.text}')
     await bot.send_message(message.from_id, f'Привет, {message.from_user.first_name}! '
                                             f'Меня зовут Elbrus Career Bot! 💫')
+    await bot.send_photo(message.from_id, photo="static/start.jpg")
+
     kb = [
         [
             types.KeyboardButton(text="Выбрать трэк"),
