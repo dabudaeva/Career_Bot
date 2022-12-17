@@ -18,26 +18,27 @@ dp = Dispatcher(bot)
 async def on_startup(_):
     print('Бот запущен!')
 
+kb = [
+    [
+        types.KeyboardButton(text="Выбрать трэк"),
+        types.KeyboardButton(text="Скачать схему"),
+        types.KeyboardButton(text="Получить мотивацию"),
+        types.KeyboardButton(text="Написать коучу")
+    ],
+]
+keyboard = types.ReplyKeyboardMarkup(
+    keyboard=kb,
+    resize_keyboard=True,
+    input_field_placeholder="Выберите один из вариантов:"
+)
+
 @dp.message_handler(commands=['start'])
+@dp.message_handler(lambda message: message.text == "В начало")
 async def starter(message: types.Message):
     logging.info(f'{message.from_user.full_name}: {message.text}')
     # await bot.send_message(message.from_id, f'Привет, {message.from_user.first_name}! '
     #                                         f'Меня зовут Elbrus Career Bot! 💫')
     await bot.send_photo(message.from_id, photo=open('static/start.jpg', 'rb'))
-
-    kb = [
-        [
-            types.KeyboardButton(text="Выбрать трэк"),
-            types.KeyboardButton(text="Скачать схему"),
-            types.KeyboardButton(text="Получить мотивацию"),
-            types.KeyboardButton(text="Написать коучу")
-        ],
-    ]
-    keyboard = types.ReplyKeyboardMarkup(
-        keyboard=kb,
-        resize_keyboard=True,
-        input_field_placeholder="Выберите один из вариантов:"
-    )
     await message.answer("Чем я могу помочь?", reply_markup=keyboard)
 
 
@@ -51,12 +52,6 @@ async def pdf(message: types.Message):
     await bot.send_document(message.from_id, document=open(job, 'rb'))
     await bot.send_document(message.from_id, document=open(negotiation, 'rb'))
     await bot.send_message(message.from_id, text="🚨🚨🚨 *[Ссылка на miro](https://miro.com/app/board/uXjVP4s6vpQ=/)*", parse_mode='MarkdownV2')
-    kb = [[types.KeyboardButton(text="Выбрать трэк"),
-           types.KeyboardButton(text="Скачать схему"),
-           types.KeyboardButton(text="Получить мотивацию"),
-           types.KeyboardButton(text="Написать коучу")],]
-    keyboard = types.ReplyKeyboardMarkup(keyboard=kb, resize_keyboard=True,
-                                         input_field_placeholder="Выбери один из вариантов:")
     await message.answer("Могу я помочь чем-то еще?", reply_markup=keyboard)
 
 
@@ -66,12 +61,6 @@ async def motivation(message: types.Message):
     logging.info(f'{message.from_user.full_name}: {message.text}')
     await bot.send_message(message.from_id, "У тебя все получится, главное не сдаваться! Вот тебе мотивационный пингвин 🐧")
     await bot.send_animation(message.from_id, animation='https://media2.giphy.com/media/OZbGrdp7FiDiE/giphy.gif')
-    kb = [[types.KeyboardButton(text="Выбрать трэк"),
-           types.KeyboardButton(text="Скачать схему"),
-           types.KeyboardButton(text="Получить мотивацию"),
-           types.KeyboardButton(text="Написать коучу")], ]
-    keyboard = types.ReplyKeyboardMarkup(keyboard=kb, resize_keyboard=True,
-                                         input_field_placeholder="Выбери один из вариантов:")
     await message.answer("Могу я помочь чем-то еще?", reply_markup=keyboard)
 
 
@@ -81,35 +70,59 @@ async def pdf(message: types.Message):
     logging.info(f'{message.from_user.full_name}: {message.text}')
     await bot.send_message(message.from_id, "Надя Крутикова отличный специалист, она тебе точно поможет!")
     await bot.send_message(message.from_id, text="❤️ *[Вот ссылка на аккаунт Нади](https://t.me/krutikovanad)* ❤️", parse_mode='MarkdownV2')
-    kb = [[types.KeyboardButton(text="Выбрать трэк"),
-           types.KeyboardButton(text="Скачать схему"),
-           types.KeyboardButton(text="Получить мотивацию"),
-           types.KeyboardButton(text="Написать коучу")], ]
-    keyboard = types.ReplyKeyboardMarkup(keyboard=kb, resize_keyboard=True,
-                                         input_field_placeholder="Выбери один из вариантов:")
 
 
 
+
+
+start_text = "Тест"
 
 @dp.message_handler(lambda message: message.text == "Выбрать трэк")
 async def track(message: types.Message):
     logging.info(f'{message.from_user.full_name}: {message.text}')
-    await bot.send_message(message.from_id, f'Отличный выбор!')
-    kb = [
-        [
-            types.KeyboardButton(text="Переговоры с работодателем"),
-            types.KeyboardButton(text="Поиск работы"),
-            types.KeyboardButton(text="Назад"),
-            types.KeyboardButton(text="Вперед"),
-            types.KeyboardButton(text="В начало")
-        ],
-    ]
-    keyboard = types.ReplyKeyboardMarkup(
-        keyboard=kb,
-        resize_keyboard=True,
-        input_field_placeholder="Выберите один из вариантов:"
+    start_keyboard = types.InlineKeyboardMarkup(row_width=1).add(
+        types.InlineKeyboardButton(text="Переговоры с работодателем", callback_data="negotiation"),
+        types.InlineKeyboardButton(text="Поиск работы", callback_data="job")
     )
-    await message.answer("Какой трэк вы выбираете?", reply_markup=keyboard)
+    await message.answer("Какой трэк вы выбираете?", reply_markup=start_keyboard)
+
+
+@dp.callback_query_handler(text="negotiation")
+async def negotiations(query: types.CallbackQuery):
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="Далее", callback_data="next1")
+    )
+    await query.message.edit_text('Вам звонит/пишет HR  и сообщает, '
+                                  'что работодатель готов сделать оффер!', reply_markup=keyboard1)
+
+
+@dp.callback_query_handler(text="next1")
+async def negotiations(query: types.CallbackQuery):
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="Назад", callback_data="negotiation"),
+        types.InlineKeyboardButton(text="Далее", callback_data="next2"),
+    )
+    await query.message.edit_text('Запишите все, что HR рассказал по телефону/сравните '
+                                  'текст сообщения с текстом вакансии - информация может '
+                                  'немного отличаться от опубликованной в вакансии, то, что '
+                                  'озвучил/написал  HR  имеет большую силу.', reply_markup=keyboard1)
+
+@dp.callback_query_handler(text="next2")
+async def negotiations(query: types.CallbackQuery):
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="Назад", callback_data="next1"),
+        types.InlineKeyboardButton(text="Далее", callback_data="next3"),
+    )
+    await query.message.edit_text(''
+                                  'Не говорите сразу же "да, я согласен", '
+                                  'попросите выслать оффер в письменном виде, '
+                                  'чтобы вы могли подробно в спокойной обстановке '
+                                  'ознакомиться с информацией', reply_markup=keyboard1)
+
+
+
+
+
 
 
 @dp.message_handler()
