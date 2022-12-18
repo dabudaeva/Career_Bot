@@ -1,4 +1,3 @@
-
 import random
 @dp.message_handler(lambda message: message.text == "Получить мотивацию")
 async def motivation(message: types.Message):
@@ -7,9 +6,9 @@ async def motivation(message: types.Message):
     dir = 'static/motiv'
     path = random.choice(os.listdir(dir))
     path=dir+'/'+path
-    try:
+    if path[-3:]=='gif':
         photo = open(path, 'rb')
         await bot.send_animation(message.from_id, photo)
-    except:
+    else:
         await bot.send_photo(message.from_id, photo=open(path, 'rb'))
     await message.answer("Могу я помочь чем-то еще?", reply_markup=keyboard)
