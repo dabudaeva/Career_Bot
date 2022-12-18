@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.INFO,
                     datefmt='%H:%M:%S')
 
 # TOKEN = os.getenv('TOKEN')
-TOKEN = '5522470947:AAH8E3dr59tGtaxt1iw5nH0Rvyg5z0BM8gY'
+TOKEN = '5865671919:AAGRIya9qE9f_IoBsu6Qu-geMnD_QZ9h6YU'
 ADMIN='1081686891'
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
