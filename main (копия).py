@@ -58,7 +58,7 @@ keyboard.row(button3, button4)
 @dp.message_handler(lambda message: message.text == "В начало")
 async def starter(message: types.Message):
     logging.info(f'{message.from_user.full_name}: {message.text}')
-    await bot.send_photo(message.from_id, photo=open('static/start.png', 'rb'))
+    await bot.send_photo(message.from_id, photo=open('static/media_files/start.png', 'rb'))
     await bot.send_message(message.from_id, text="Чтобы со мной общаться, в помощь кнопки 😉")
     await message.answer("Чем я могу помочь?", reply_markup=keyboard)
 
@@ -90,7 +90,7 @@ async def motivation(message: types.Message):
 @dp.message_handler(lambda message: message.text == "Написать коучу")
 async def pdf(message: types.Message):
     logging.info(f'{message.from_user.full_name}: {message.text}')
-    await bot.send_photo(message.from_id, photo=open('static/hr.jpg', 'rb'), 
+    await bot.send_photo(message.from_id, photo=open('static/media_files/hr.jpg', 'rb'),
     caption='Надя Крутикова отличный специалист, она тебе точно поможет!')
     await message.answer("Что делаем?", reply_markup=keyboard1)
 

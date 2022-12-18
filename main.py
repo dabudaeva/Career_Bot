@@ -38,7 +38,7 @@ async def starter(message: types.Message):
     logging.info(f'{message.from_user.full_name}: {message.text}')
     # await bot.send_message(message.from_id, f'Привет, {message.from_user.first_name}! '
     #                                         f'Меня зовут Elbrus Career Bot! 💫')
-    await bot.send_photo(message.from_id, photo=open('static/start.png', 'rb'))
+    await bot.send_photo(message.from_id, photo=open('static/media_files/start.png', 'rb'))
     # await bot.send_message(message.from_id, text="Я помогу понять, что ОК или НЕ ОК в оффере, подскажу, как поторговаться по условиям и, конечно, разделю с вами вашу победу")
     await bot.send_message(message.from_id, text="Чтобы со мной общаться, в помощь кнопки 😉")
     await message.answer("Чем я могу помочь?", reply_markup=keyboard)
