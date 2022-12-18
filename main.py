@@ -45,6 +45,10 @@ async def starter(message: types.Message):
 
 
 
+
+
+######################################## Main Menu ########################################
+
 @dp.message_handler(lambda message: message.text == "Скачать схему")
 async def pdf(message: types.Message):
     logging.info(f'{message.from_user.full_name}: {message.text}')
@@ -74,9 +78,6 @@ async def pdf(message: types.Message):
     await bot.send_message(message.from_id, text="❤️ *[Вот ссылка на аккаунт Нади](https://t.me/krutikovanad)* ❤️", parse_mode='MarkdownV2')
 
 
-
-
-
 start_text = "Тест"
 @dp.message_handler(lambda message: message.text == "Выбрать трэк")
 async def track(message: types.Message):
@@ -88,6 +89,11 @@ async def track(message: types.Message):
     await message.answer(f"Какой трэк вы выбираете?\n\n", parse_mode="HTML", reply_markup=start_keyboard)
 
 
+
+
+
+######################################## Track 1 ########################################
+
 @dp.callback_query_handler(text="negotiation")
 async def negotiations(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
@@ -98,7 +104,7 @@ async def negotiations(query: types.CallbackQuery):
 
 
 @dp.callback_query_handler(text="next1")
-async def negotiations(query: types.CallbackQuery):
+async def negotiations1(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="negotiation"),
@@ -110,7 +116,7 @@ async def negotiations(query: types.CallbackQuery):
                                   'озвучил/написал  HR  имеет большую силу.\n\n', parse_mode="HTML", reply_markup=keyboard1)
 
 @dp.callback_query_handler(text="next2")
-async def negotiations(query: types.CallbackQuery):
+async def negotiations2(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="next1"),
@@ -122,7 +128,7 @@ async def negotiations(query: types.CallbackQuery):
                                   'ознакомиться с информацией\n\n', parse_mode="HTML", reply_markup=keyboard1)
 
 @dp.callback_query_handler(text="next3")
-async def negotiations(query: types.CallbackQuery):
+async def negotiations3(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="next2"),
@@ -133,7 +139,7 @@ async def negotiations(query: types.CallbackQuery):
 
 import html
 @dp.callback_query_handler(text="next4_alt")
-async def negotiations(query: types.CallbackQuery):
+async def negotiations4(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="next3"),
@@ -144,7 +150,7 @@ async def negotiations(query: types.CallbackQuery):
     await query.message.edit_text(f'{text1}\n\n<i>{text2}</i>\n\n{text3}\n\n', parse_mode="HTML", reply_markup=keyboard1)
 
 @dp.callback_query_handler(text="next4")
-async def negotiations(query: types.CallbackQuery):
+async def negotiations5(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="next3"),
@@ -157,7 +163,7 @@ async def negotiations(query: types.CallbackQuery):
     await query.message.edit_text(f'{text1}\n\n<i>{text2}\n\n{text3}</i>\n\n', parse_mode="HTML", reply_markup=keyboard1)
 
 @dp.callback_query_handler(text="next5_alt")
-async def negotiations(query: types.CallbackQuery):
+async def negotiations6(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="next4"),
@@ -170,7 +176,7 @@ async def negotiations(query: types.CallbackQuery):
     await query.message.edit_text(f'{text1}\n\n<i>{text2}</i>\n\n{text3}\n\n<i>{text4}</i>\n\n{text5}\n\n', parse_mode="HTML", reply_markup=keyboard1)
 
 @dp.callback_query_handler(text="next5")
-async def negotiations(query: types.CallbackQuery):
+async def negotiations7(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="next4"),
@@ -181,7 +187,7 @@ async def negotiations(query: types.CallbackQuery):
                                   'чем вы рассчитывали?', reply_markup=keyboard1)
 
 @dp.callback_query_handler(text="next5_no")
-async def negotiations(query: types.CallbackQuery):
+async def negotiations8(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="next5"),
@@ -191,7 +197,7 @@ async def negotiations(query: types.CallbackQuery):
     await query.message.edit_text('💵 Вам сделали хорошее предложение, оффер на среднюю зарплату?', reply_markup=keyboard1)
 
 @dp.callback_query_handler(text="next5_no_again")
-async def negotiations(query: types.CallbackQuery):
+async def negotiations9(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="next5_no"),
@@ -200,7 +206,7 @@ async def negotiations(query: types.CallbackQuery):
     await query.message.edit_text('💸 Вам сделали предложение с низкой зарплатой?', reply_markup=keyboard1)
 
 @dp.callback_query_handler(text="next6")
-async def negotiations(query: types.CallbackQuery):
+async def negotiations10(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="next5"),
@@ -213,7 +219,7 @@ async def negotiations(query: types.CallbackQuery):
 
 
 @dp.callback_query_handler(text="next7")
-async def negotiations(query: types.CallbackQuery):
+async def negotiations11(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="next6"),
@@ -221,7 +227,7 @@ async def negotiations(query: types.CallbackQuery):
     await query.message.edit_text('👩‍💻 Ок, не забудьте про юридическое оформлени! 👨‍💻', reply_markup=keyboard1)
 
 @dp.callback_query_handler(text="next7_alt1")
-async def negotiations(query: types.CallbackQuery):
+async def negotiations12(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="next6"),
@@ -235,7 +241,7 @@ async def negotiations(query: types.CallbackQuery):
 
 
 @dp.callback_query_handler(text="next6_alt")
-async def negotiations(query: types.CallbackQuery):
+async def negotiations13(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="next5_no_again"),
@@ -244,7 +250,7 @@ async def negotiations(query: types.CallbackQuery):
     await query.message.edit_text('⛔️ Не соглашайтесь, не попробовав поднять сумму, даже если отчаялись и считаете это первым и последним оффером. Самое страшное, что может произойти, если вы попробуете договориться о повышении - работодатель ответит, что это финальный оффер и дальнейшие переговоры невозможны.', reply_markup=keyboard1)
 
 @dp.callback_query_handler(text="next7_alt")
-async def negotiations(query: types.CallbackQuery):
+async def negotiations14(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
     keyboard1 = types.InlineKeyboardMarkup().add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="next6_alt"),
@@ -253,10 +259,103 @@ async def negotiations(query: types.CallbackQuery):
     await query.message.edit_text(f'<i>{text1}</i>', parse_mode="HTML", reply_markup=keyboard1)
 
 
+######################################## Track 2 ########################################
+
+@dp.callback_query_handler(text="job")
+async def jobs(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup(row_width=1).add(
+        types.InlineKeyboardButton(text='HR сама написала с предложением созвониться', callback_data='then1'),
+        types.InlineKeyboardButton(text='Вы сами откликнулись и получили отказ', callback_data="then1_alt"),
+        types.InlineKeyboardButton(text='Вы сами откликнулись и получили приглашение', callback_data="then2")
+    )
+    text1 = f'🏁 Вы выложили резюме в открытом доступе на HH\Habr Career и пр.'
+    text2 = f'‼️ Присоединяем сопроводительное письмо + одностраничное резюме отдельным файлом!'
+    await query.message.edit_text(f'{text1}\n\n<b>{text2}</b>', parse_mode="HTML", reply_markup=keyboard1)
+
+
+@dp.callback_query_handler(text="then1")
+async def jobs1(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="job"),
+        types.InlineKeyboardButton(text="Далее ▶️", callback_data="then2"),
+    )
+    await query.message.edit_text(f'🥳 Поздравляю! Резюме работает! ', parse_mode="HTML", reply_markup=keyboard1)
+
+@dp.callback_query_handler(text="then1_alt")
+async def jobs2(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="job"),
+    )
+    text1 = f'Поблагодарите HR и напишите емкое сообщение, налаживая коммуникацию с первого касания. Например:'
+    text2 = f'Здравствуйте <u>(Имя HR-менеджера)</u>.\n\nБлагодарю Вас за внимание, проявленное к моей кандидатуре. Буду рад(а) оставаться с вами на связи и получить приглашение на собеседование.\n\nС уважением, <u>(Ваше имя)</u>.'
+    await query.message.edit_text(f'{text1}\n\n<i>{text2}</i>', parse_mode="HTML", reply_markup=keyboard1)
+
+@dp.callback_query_handler(text="then2")
+async def jobs3(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="job"),
+        types.InlineKeyboardButton(text="Нет 👎", callback_data="then3_no"),
+        types.InlineKeyboardButton(text="Да 👍", callback_data="then3_yes"),
+        types.InlineKeyboardButton(text="В вакансии не указана ЗП", callback_data="salary"),
+    )
+    await query.message.edit_text(f'🎉 Ура! Вас заметили!\n\nВы хотите продолжить общение по вакансии?', parse_mode="HTML", reply_markup=keyboard1)
+
+@dp.callback_query_handler(text="salary")
+async def jobs4(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then2"),
+        types.InlineKeyboardButton(text="Нет 👎", callback_data="salary_no"),
+        types.InlineKeyboardButton(text="Да 👍", callback_data="salary_yes"),
+    )
+    await query.message.edit_text(f'У вас есть оффер?', reply_markup=keyboard1)
+
+@dp.callback_query_handler(text="salary_yes")
+async def jobs5(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="salary"),
+    )
+    text1 = f'Как спросить про заработную плату, если она не указана в вакансии?'
+    text2 = f'Здравствуйте <u>(Имя HR-менеджера)</u>.\n' \
+            f'Спасибо за интересное предложение. Я ознакомился\(лась) с условиями, готов(а) начать общение и рассказать о своем опыте работы.\n\n' \
+            f'Пожалуйста уточните размер оклада (на руки) на данной позиции?\n' \
+            f'Дело в том, что я сейчас в процессе оформления документов в другой компании и хочу понимать есть ли смысл менять ситуацию или нет.\n\n' \
+            f'Спасибо за понимание.\n' \
+            f'С уважением, <u>(Ваше имя)</u>.'
+    await query.message.edit_text(f'<b>{text1}</b>\n\n<i>{text2}</i>', parse_mode="HTML", reply_markup=keyboard1)
+
+@dp.callback_query_handler(text="salary_no")
+async def jobs5(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="salary"),
+    )
+    text1 = f'Как спросить про заработную плату, если она не указана в вакансии?'
+    text2 = f'Здравствуйте <u>(Имя HR-менеджера)</u>.\n' \
+            f'Спасибо за интересное предложение. Я ознакомился\(лась) с условиями, готов(а) начать общение и рассказать о своем опыте работы.\n\n' \
+            f'Пожалуйста уточните размер оклада (на руки) на данной позиции?\n' \
+            f'Спасибо за понимание.\n' \
+            f'С уважением, <u>(Ваше имя)</u>.'
+    await query.message.edit_text(f'<b>{text1}</b>\n\n<i>{text2}</i>', parse_mode="HTML", reply_markup=keyboard1)
+
+
+
+
+
+
+
+
+
+
 @dp.message_handler()
 async def echo(message: types.Message):
     logging.info(f'{message.from_user.full_name}: {message.text}')
-    await bot.send_message(message.from_id, 'К сожалению, я пока не понимаю текст, попробуй кнопкой')
+    await bot.send_message(message.from_id, 'К сожалению, я пока не понимаю текст 🥸, попробуй кнопкой')
 
 
 executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
