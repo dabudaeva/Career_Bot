@@ -83,7 +83,7 @@ import random
 async def motivation(message: types.Message):
     logging.info(f'{message.from_user.full_name}: {message.text}')
     await bot.send_message(message.from_id, "У тебя все получится, главное не сдаваться!")
-    dir = 'static/motiv'
+    dir = 'static/motivation'
     path = random.choice(os.listdir(dir))
     path=dir+'/'+path
     if path[-3:]=='gif':
