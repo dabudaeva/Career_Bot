@@ -345,7 +345,7 @@ async def jobs3(query: types.CallbackQuery):
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="job"),
         types.InlineKeyboardButton(text="Нет 👎", callback_data="then3_no"),
         types.InlineKeyboardButton(text="Да 👍", callback_data="then3_yes"),
-        types.InlineKeyboardButton(text="В вакансии не указана ЗП", callback_data="salary"),
+        types.InlineKeyboardButton(text="В вакансии не указана ЗП ", callback_data="salary"),
     )
     await query.message.edit_text(f'🎉 Ура! Вас заметили!\n\nВы хотите продолжить общение по вакансии?', parse_mode="HTML", reply_markup=keyboard1)
 
@@ -362,8 +362,10 @@ async def jobs4(query: types.CallbackQuery):
 @dp.callback_query_handler(text="salary_yes")
 async def jobs5(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
-    keyboard1 = types.InlineKeyboardMarkup().add(
+    keyboard1 = types.InlineKeyboardMarkup(row_width=1).add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="salary"),
+        types.InlineKeyboardButton(text="Не хочу продолжать общение", callback_data="then3_no"),
+        types.InlineKeyboardButton(text="Хочу продолжить общение", callback_data="then3_yes"),
     )
     text1 = f'Как спросить про заработную плату, если она не указана в вакансии?'
     text2 = f'Здравствуйте <u>(Имя HR-менеджера)</u>.\n' \
@@ -375,10 +377,12 @@ async def jobs5(query: types.CallbackQuery):
     await query.message.edit_text(f'<b>{text1}</b>\n\n<i>{text2}</i>', parse_mode="HTML", reply_markup=keyboard1)
 
 @dp.callback_query_handler(text="salary_no")
-async def jobs5(query: types.CallbackQuery):
+async def jobs6(query: types.CallbackQuery):
     logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
-    keyboard1 = types.InlineKeyboardMarkup().add(
+    keyboard1 = types.InlineKeyboardMarkup(row_width=1).add(
         types.InlineKeyboardButton(text="◀️ Назад", callback_data="salary"),
+        types.InlineKeyboardButton(text="Не хочу продолжать общение", callback_data="then3_no"),
+        types.InlineKeyboardButton(text="Хочу продолжить общение", callback_data="then3_yes"),
     )
     text1 = f'Как спросить про заработную плату, если она не указана в вакансии?'
     text2 = f'Здравствуйте <u>(Имя HR-менеджера)</u>.\n' \
@@ -388,11 +392,218 @@ async def jobs5(query: types.CallbackQuery):
             f'С уважением, <u>(Ваше имя)</u>.'
     await query.message.edit_text(f'<b>{text1}</b>\n\n<i>{text2}</i>', parse_mode="HTML", reply_markup=keyboard1)
 
+@dp.callback_query_handler(text="then3_no")
+async def jobs7(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then2"),
+    )
+    text1 = f'Как отказаться от вакансии.'
+    text2 = f'Здравствуйте <u>(Имя HR-менеджера)</u>.\n' \
+            f'Благодарю Вас за внимание, проявленное к моей кандидатуре и предложение о сотрудничестве. К сожалению, в настоящее время я вынужден(а)  отказаться от вашего предложения, так как:\n\n' \
+            f'• не рассматриваю позицию Front\Back\Fullstack или стэк....' \
+            f'• рассматриваю только удаленный формат работы\n' \
+            f'• завершил(а) поиски работы\n'\
+            f'• Ваш вариант _______\n\n' \
+            f'Буду рад(а) оставаться с вами на связи и сообщу вам, если возобновлю поиск работы.\n\n' \
+            f'Желаю вам успехов в поиске подходящего кандидата на эту должность. Всего наилучшего вам и <u>(название компании)</u>!\n\n' \
+            f'С уважением, <u>(Ваше имя)</u>.'
+    await query.message.edit_text(f'<b>{text1}</b>\n\n<i>{text2}</i>', parse_mode="HTML", reply_markup=keyboard1)
+
+
+@dp.callback_query_handler(text="then3_yes")
+async def jobs8(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup(row_width=1).add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then2"),
+        types.InlineKeyboardButton(text="Вопросы для подготовки к собесу", callback_data="then4"),
+    )
+    text2 = f'Здравствуйте <u>(Имя HR-менеджера)</u>.\n' \
+            f'Спасибо за интересное предложение. Я ознакомился\(лась) с условиями, готов(а) начать общение и рассказать о своем опыте работы.\n\n' \
+            f'Когда вам будет удобно созвониться?\n\n' \
+            f'С уважением, <u>(Ваше имя)</u>.'
+    await query.message.edit_text(f'<i>{text2}</i>', parse_mode="HTML", reply_markup=keyboard1)
+
+
+@dp.callback_query_handler(text="then4")
+async def jobs9(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then3_yes"),
+        types.InlineKeyboardButton(text="Далее ▶️", callback_data="then5"),
+    )
+    await query.message.edit_text(f'👉 *[Ссылка на вопросы](https://docs.google.com/document/d/1fRN77t5175Df4fTns0qULSKE4eK5Ecy4AS6qeSY_o1U/edit)*', parse_mode='MarkdownV2', reply_markup=keyboard1)
+
+
+@dp.callback_query_handler(text="then5")
+async def jobs10(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then4"),
+        types.InlineKeyboardButton(text="Далее ▶️", callback_data="then6"),
+    )
+    text1 = f'Вы договорились о звонке и в концы Звонка вы задаете рекрутеру\HR вопросы:'
+    text2 = f'• Какой следующий этап общения с компанией?\n' \
+            f'• Когда рекрутер\HR даст об этом знать?\n' \
+            f'• Не возражает ли рекрутер\HR, если вы напомните о себе?\n' \
+            f'• Какие этапы собеседований (сколько всего этапов)?\n\n'
+    await query.message.edit_text(f'{text1}\n\n{text2}', parse_mode="HTML", reply_markup=keyboard1)
+
+@dp.callback_query_handler(text="then6")
+async def jobs11(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup(row_width=1).add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then5"),
+        types.InlineKeyboardButton(text="Да, и это отказ 💔", callback_data="then7_alt1"),
+        types.InlineKeyboardButton(text="Да, и это оффер 🥳", callback_data="then7_alt2"),
+        types.InlineKeyboardButton(text="Нет, она пропала 😰", callback_data="then7_alt3"),
+    )
+    await query.message.edit_text(f'Рекрутер вышла к вам с фидбэком?', parse_mode="HTML", reply_markup=keyboard1)
+
+
+@dp.callback_query_handler(text="then7_alt1")
+async def jobs12(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup(row_width=1).add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then6"),
+    )
+    text1 = f'Не расстраивайтесь!  Поблагодарите рекрутера за уделенное время и внимание к вам. Например:'
+    text2 = f'Здравствуйте <u>(Имя HR-менеджера)</u>.\n\n' \
+            f'Спасибо за обратную связь, уделенное моей кандидатуре время и приятный опыт собеседования!\n\n' \
+            f'Жаль, что не получится посотрудничать по данной вакансии. Но я продолжаю искать работу в этой сфере. И мне был бы очень полезен ваш взгляд как профессионала, почему я получил(а) отказ. Хочу разобраться, над чем стоит поработать, какие навыки подтянуть.\n\n' \
+            f'Я сейчас активно ищу работу и буду благодарен\(на), если вы порекомендуете мою кандидатуру коллегам.\n\n' \
+            f'Буду признателен(льна), если сможете ответить.\n' \
+            f'<u>(Ваше имя)</u>.'
+    text3 = f'В случае если с hr случилась "взаимная любовь" написать:'
+    text4 = f'Хочу поделиться с вами положительным впечатлением. После собеседования я понял(а), что ваша компания - это та самая компания мечты. Если у вас что-то изменится или откроется еще одна вакансия, то я буду очень счастлив(а) принять участие в отборе на вакансию и пройти собеседование.\n\n' \
+            f'<u>(Ваше имя)</u>.'
+    await query.message.edit_text(f'<b>{text1}</b>\n\n<i>{text2}</i>\n\n<b>{text3}</b>\n\n<i>{text4}</i>', parse_mode="HTML", reply_markup=keyboard1)
+
+
+@dp.callback_query_handler(text="then7_alt3")
+async def jobs13(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup(row_width=1).add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then6"),
+        types.InlineKeyboardButton(text="Если вы очень хотите в эту компанию ❤️", callback_data="then8_alt1"),
+        types.InlineKeyboardButton(text="Если вы очень торопитесь 🏃‍", callback_data="then8_alt2"),
+    )
+    text1 = f'Здравствуйте _____.\n' \
+            f'Уточните пожалуйста есть ли уже решение по моей кандидатуре?'
+    text2 = f'Если решения нет, то уточните когда вам можно будет вернуться за обратной связью.\nНапример:'
+    text3 = f'Благодарю за ответ. Сообщите пожалуйста когда мне ожидать обратной связи по моей кандидатуре?'
+    text4 = f'NOTE: если рекрутер обещал вам дать ответ в четверг, не надо писать в середине рабочего дня четверга что-то вроде: «Неужели даже отрицательного фидбэка не заслуживаю?”'
+    await query.message.edit_text(f'<i>{text1}</i>\n\n<b>{text2}</b>\n\n<i>{text3}</i>\n\n<b>{text4}</b>', parse_mode="HTML", reply_markup=keyboard1)
 
 
 
+@dp.callback_query_handler(text="then8_alt1")
+async def jobs14(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then7_alt3"),
+    )
+    text1 = f'Здравствуйте _____.\n' \
+            f'Дело в том, что до <u>(день недели или число)</u> я должен дать ответ по офферу, который получил на днях, однако ваша компания для меня приоритетна и я бы хотел пройти дальнейшие этапы как можно скорее.'
+    text2 = f'А дальше:'
+    text3 = f'Подскажите получится с ближайшее время провести со мной (техническое) собеседование?'
+    text4 = f'или'
+    text5 = f'Подскажите сможете ли вы до пятницы  вернуться с ответом по моей кандидатуре?'
+    await query.message.edit_text(f'<i>{text1}</i>\n\n<b>{text2}</b>\n\n<i>{text3}</i>\n\n<b>{text4}</b>\n\n<i>{text5}', parse_mode="HTML", reply_markup=keyboard1)
+
+@dp.callback_query_handler(text="then8_alt2")
+async def jobs15(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then7_alt3"),
+    )
+    text1 = f'Здравствуйте _____.\n'
+    text2 = f'Пожалуйста уточните какие дальнейшие этапы собеседования? Мне сегодня сделали оффер, нужно дать ответ до  <u>(день недели или число)</u>, хотел бы успеть сравнить вакансии.'
+    await query.message.edit_text(f'<i>{text1}</i>\n\n<i>{text2}</i>', parse_mode="HTML", reply_markup=keyboard1)
 
 
+@dp.callback_query_handler(text="then7_alt2")
+async def jobs16(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then6"),
+        types.InlineKeyboardButton(text="Далее ▶️", callback_data='then8'),
+    )
+    text1 = f'<b>NOTE</b>: коуч поможет вам понять, <b>что ОК или НЕ ОК в оффере</b>, подскажет, как поторговаться по условиям и, конечно, <b>разделит с вами вашу победу</b>.'
+    await query.message.edit_text(f'Cрочно писать вашему карьерному коучу‼️\n\n{text1}', parse_mode="HTML", reply_markup=keyboard1)
+
+@dp.callback_query_handler(text="then8")
+async def jobs17(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup(row_width=1).add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then7_alt2"),
+        types.InlineKeyboardButton(text="Да 🎉", callback_data='then9_yes'),
+        types.InlineKeyboardButton(text="Да, но не устраивают условия 🤷‍", callback_data='then9_yes_alt'),
+        types.InlineKeyboardButton(text="Нет 👎", callback_data='then9_no'),
+    )
+    await query.message.edit_text(f'Вы  решили принять оффер?', parse_mode="HTML", reply_markup=keyboard1)
+
+
+@dp.callback_query_handler(text="then9_yes")
+async def jobs18(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup().add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then8"),
+    )
+    text1 = f'Здравствуйте <u>(Имя HR-менеджера)</u>.\n\n' \
+            f'Спасибо за предложение присоединиться к команде (название компании). Ознакомившись с условиями найма, я с радостью принимаю ваше предложение.\n' \
+            f'Размер оплаты труда и прочие условия, указанные в оффере, полностью меня устраивают.\n' \
+            f'Готов(а) приступить к работе с (число\месяц) и с нетерпением жду своего первого дня в вашей компании.\n' \
+            f'Если у вас есть ко мне дополнительные вопросы готов(а) ответить в удобное вам время.\n\n' \
+            f'С уважением, <u>(Ваше имя)</u>.'
+    await query.message.edit_text(f'<i>{text1}</i>', parse_mode="HTML", reply_markup=keyboard1)
+
+@dp.callback_query_handler(text="then9_yes_alt")
+async def jobs19(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup(row_width=1).add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then8"),
+        types.InlineKeyboardButton(text="Перейти к переговорам", callback_data="negotiation"),
+    )
+    await query.message.edit_text(f'СМОТРИ БЛОК-СХЕМУ ПО ПЕРЕГОВОРАМ', parse_mode="HTML", reply_markup=keyboard1)
+
+@dp.callback_query_handler(text="then9_no")
+async def jobs20(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup(row_width=1).add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then8"),
+        types.InlineKeyboardButton(text="Отказать (с объяснением причины)", callback_data="then10_alt1"),
+        types.InlineKeyboardButton(text="Отказать (без объяснения причин)", callback_data="then10_alt2"),
+    )
+    text1 = f'<b>NOTE</b>: чем дольше вы общаетесь с компанией, тем более обоснованным должен быть ваш отказ. Главное ― избегать исчезновения из коммуникации с компанией без объяснения причин. Это может сыграть во вред вашей репутации на рынке труда.'
+    await query.message.edit_text(f'{text1}', parse_mode="HTML", reply_markup=keyboard1)
+
+
+@dp.callback_query_handler(text="then10_alt1")
+async def jobs21(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup(row_width=1).add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then9_no"),
+    )
+    text1 = f'Здравствуйте <u>(Имя HR-менеджера)</u>.\n\n' \
+            f'Спасибо за предложение стать частью <u>(название компании)</u> в роли <u>(название позиции)</u>. Я ценю предоставленную возможность и ваш интерес к моей кандидатуре.\n\n' \
+            f'К сожалению, я выбрал(а) позицию в другой компании. На данном этапе она лучше всего соответствует моим карьерным ожиданиям и целям.\n\n' \
+            f'Еще раз спасибо за ваше время и приятный опыт собеседования!\n\n' \
+            f'С уважением, <u>(Ваше имя)</u>.'
+    await query.message.edit_text(f'<i>{text1}</i>', parse_mode="HTML", reply_markup=keyboard1)
+
+@dp.callback_query_handler(text="then10_alt2")
+async def jobs22(query: types.CallbackQuery):
+    logging.info(f'{query.message.from_user.full_name}: {query.message.text}')
+    keyboard1 = types.InlineKeyboardMarkup(row_width=1).add(
+        types.InlineKeyboardButton(text="◀️ Назад", callback_data="then9_no"),
+    )
+    text1 = f'Здравствуйте <u>(Имя HR-менеджера)</u>.\n\n' \
+            f'Спасибо за предложение присоединиться к команде <u>(название компании)</u>. Я ценю время, которое вы потратили на то, чтобы провести собеседование и ответить на все мои вопросы.\n\n' \
+            f'Мне нелегко далось это решение, но я вынужден(а) отказаться от вашего предложения.\n\n' \
+            f'Желаю вам успехов в поиске подходящего кандидата на эту должность. Всего наилучшего вам и <u>(название компании)</u>!\n\n' \
+            f'С уважением, <u>(Ваше имя)</u>.'
+    await query.message.edit_text(f'<i>{text1}</i>', parse_mode="HTML", reply_markup=keyboard1)
 
 
 
