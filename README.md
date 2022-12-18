@@ -1,7 +1,10 @@
 # Career_Bot
-Career Bot - телеграм бот в помощь коучам
-
 
 ![image](https://github.com/vlbudaeva/Career_Bot/blob/main/static/media_files/start.png)
-https://t.me/still_studentt
+
+Для связи с коучем сообщения пересылаются в канал
+<a href="https://t.me/still_studentt" target="_blank" rel="noreferrer"> 
+канал
+   </a>
+
 
